@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stowatch</title>
+  <style>
+    *{
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .wrapper{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .timer-display{
+      display: flex;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+    .timer-display p{
+      font-size: 150px;
+      font-weight: bold;
+    }
+    .control-container{
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      gap: 20px;
+    }
+
+  .control-container button{
+    height: 160px;
+    width: 200px;
+    border: none;
+    border-radius: 100px;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+    /* background: rgba(39, 39, 39, 0.4); */
+  }
+
+  .start-button{
+   background: rgb(0, 71, 62);
+  }
+  .start-button:hover{
+    background: rgba(39, 39, 39, 0.4);
+    box-shadow: 1px 5px 7px 2px rgba(0, 0, 0, 0.2);
+  }
+  .stop-button{
+  background-color: rgb(250, 174, 43);
+}
+  .stop-button:hover{
+    background: rgba(39, 39, 39, 0.4);
+    box-shadow: 1px 5px 7px 2px rgba(0, 0, 0, 0.2);
+  }
+  .reset-button{
+  background-color: rgb(250, 82, 70);
+}
+  .reset-button:hover{
+    background: rgba(39, 39, 39, 0.4);
+    box-shadow: 1px 5px 7px 2px rgba(0, 0, 0, 0.2);
+  }
+
+@media only screen and (max-width: 425px ) {
+  .wrapper {
+    min-height: 80vh;
+  }
+ .container{
+  width: 400px;
+  height: 100%;
+ }
+ .control-container button{
+    height: 100px;
+    width: 100px;
+    font-size: 25px;
+    font-weight: bold;
+    transition: 0.3s ease;
+    
+  }
+  .timer-display p{
+      font-size: 120px;
+      font-weight: bold;
+    }
+}
+    
+  
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="container">
+      <div class="timer-display">
+        <p class="minutes-text js-minutes-text">0</p>
+        <p>:</p>
+        <p class="seconds-first-digit-text js-seconds-first-digit-text">0</p>
+        <p class="second-2nd-digit-text js-second-2nd-digit-text">0</p>
+      </div>
+      <div class="control-container">
+        <button class="start-button js-start-button">Start</button>
+        <button class="stop-button js-stop-button">Stop</button>
+        <button class="reset-button js-reset-button">Reset</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    //button html elements
+    const startButtonElement = document.querySelector('.js-start-button');
+    const stopButtonElement = document.querySelector('.js-stop-button');
+    const resetButtonElement = document.querySelector('.js-reset-button');
+
+   
+    startButtonElement.addEventListener('click', () => {startTimer()});
+    stopButtonElement.addEventListener('click', () => {stopTimer()});
+    resetButtonElement.addEventListener('click', () => {reset()});
+
+    //Text Element
+    const minutesTextElement = document.querySelector('.js-minutes-text');
+    const secondsFirstDigitTextElement = document.querySelector('.js-seconds-first-digit-text');
+    const seconds2ndDigitElement = document.querySelector('.js-second-2nd-digit-text');
+
+    let secondValue = 0;
+    let firstValue = 0;
+    let minutesValue = 0;
+    let intervalId;
+    function startTimer(){
+      
+      intervalId = setInterval(() => {
+        timer()
+        // seconds-first-digitTextElement.innerHTML = seconds-first-digitTextElement + 1;
+      }, 100);
+    }
+
+    function stopTimer(){
+      clearInterval(intervalId);
+    }
+    
+    function timer(){
+      secondValue += 1;
+      seconds2ndDigitElement.innerHTML = secondValue;
+      if (secondValue >= 10){
+        secondValue = 0;
+        firstValue += 1;
+        secondsFirstDigitTextElement.innerHTML = firstValue;
+        seconds2ndDigitElement.innerHTML = secondValue;
+        if (firstValue >= 6){
+          firstValue = 0;
+          minutesValue += 1;
+          minutesTextElement.innerHTML = minutesValue;
+        secondsFirstDigitTextElement.innerHTML = firstValue;
+        }
+      } 
+    }
+
+    function reset(){
+       secondValue = 0;
+     firstValue = 0;
+     minutesValue = 0;
+      seconds2ndDigitElement.innerHTML = 0;
+      secondsFirstDigitTextElement.innerHTML = 0;
+      minutesTextElement.innerHTML = 0;
+      clearInterval(intervalId);
+    }
+  </script>
+</body>
+</html>
