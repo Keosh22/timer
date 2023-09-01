@@ -131,16 +131,21 @@
     let firstValue = 0;
     let minutesValue = 0;
     let intervalId;
+    let isTimer = false;
+    
     function startTimer(){
-      
-      intervalId = setInterval(() => {
-        timer()
+        if (!isTimer){
+        intervalId = setInterval(() => {
+        timer();
+        isTimer = true;
         // seconds-first-digitTextElement.innerHTML = seconds-first-digitTextElement + 1;
       }, 100);
+      }
     }
 
     function stopTimer(){
       clearInterval(intervalId);
+      isTimer = false;
     }
     
     function timer(){
